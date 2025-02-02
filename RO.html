@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul de Moyenne</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { width: 50%; margin: auto; }
+        input { width: 50px; margin: 5px; }
+        .result { font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calcul de Moyenne</h2>
+        <form id="gradesForm">
+            <h3>Analyse Numérique</h3>
+            TD: <input type="number" id="td_an" min="0" max="20">
+            TP: <input type="number" id="tp_an" min="0" max="20">
+            Exam: <input type="number" id="exam_an" min="0" max="20">
+            
+            <h3>Analyse 3</h3>
+            TD: <input type="number" id="td_a3" min="0" max="20">
+            Exam: <input type="number" id="exam_a3" min="0" max="20">
+            
+            <h3>Algèbre 3</h3>
+            TD: <input type="number" id="td_alg" min="0" max="20">
+            Exam: <input type="number" id="exam_alg" min="0" max="20">
+            
+            <h3>Topologie</h3>
+            TD: <input type="number" id="td_top" min="0" max="20">
+            Exam: <input type="number" id="exam_top" min="0" max="20">
+            
+            <h3>Histoire des Maths</h3>
+            Exam: <input type="number" id="exam_hist" min="0" max="20">
+            
+            <h3>Logique</h3>
+            TD: <input type="number" id="td_log" min="0" max="20">
+            Exam: <input type="number" id="exam_log" min="0" max="20">
+            
+            <h3>Matlab</h3>
+            TP: <input type="number" id="tp_mat" min="0" max="20">
+            Exam: <input type="number" id="exam_mat" min="0" max="20">
+            
+            <br><br>
+            <button type="button" onclick="calculerMoyenne()">Calculer</button>
+        </form>
+        
+        <div class="result" id="result"></div>
+    </div>
+    
+    <script>
+        function calculerMoyenne() {
+            function getValue(id) {
+                return parseFloat(document.getElementById(id).value) || 0;
+            }
+            
+            let analyse_numerique = getValue("td_an") * 0.2 + getValue("tp_an") * 0.2 + getValue("exam_an") * 0.6;
+            let analyse3 = getValue("td_a3") * 0.4 + getValue("exam_a3") * 0.6;
+            let algebre3 = getValue("td_alg") * 0.4 + getValue("exam_alg") * 0.6;
+            let topologie = getValue("td_top") * 0.4 + getValue("exam_top") * 0.6;
+            let histoire_des_maths = getValue("exam_hist");
+            let logique = getValue("td_log") * 0.4 + getValue("exam_log") * 0.6;
+            let matlab = getValue("tp_mat") * 0.4 + getValue("exam_mat") * 0.6;
+            
+            let moyenne_analyse_topo_algebre = (analyse3 * 4 + algebre3 * 3 + topologie * 3) / 10;
+            let moyenne_reste = (analyse_numerique * 3 + logique * 2 + matlab * 1) / 6;
+            let moyenne_generale = (moyenne_analyse_topo_algebre * 10 + histoire_des_maths * 1 + moyenne_reste * 6) / 17;
+            
+            document.getElementById("result").innerHTML = 
+                "Moyenne Analyse + Topologie + Algèbre: " + moyenne_analyse_topo_algebre.toFixed(2) + "<br>" +
+                "Moyenne Histoire des Maths: " + histoire_des_maths.toFixed(2) + "<br>" +
+                "Moyenne des autres matières: " + moyenne_reste.toFixed(2) + "<br>" +
+                "Moyenne Générale: " + moyenne_generale.toFixed(2);
+        }
+    </script>
+</body>
+</html>
